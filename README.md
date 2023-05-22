@@ -9,3 +9,4 @@ For example, the IP address of your computer is "192.168.3.1", change the Url st
 Step 6: Build the project.  
 Step 7: Run the HTTPServer.py on your computer.  
 Step 8: Run the built app.  
+Step 9: Show the QRCode.png in front of the camera and see the result.  
