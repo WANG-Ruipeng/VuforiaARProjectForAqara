@@ -25,7 +25,7 @@ public class IlluminanceFetcher : MonoBehaviour
         public List<Result> result;
     }
 
-    private string url = "http://localhost:8080";
+    public string url = "http://localhost:8080";
     public float timeInterval = 5f; // Interval to fetch the data (in seconds)
     public float illuminance; // to store illuminance value
     public TextMeshProUGUI illuminanceText;
@@ -34,13 +34,13 @@ public class IlluminanceFetcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //InvokeRepeating("StartFetch", 0f, timeInterval);
+        //StartCoroutine(GetIlluminanceData());
+        InvokeRepeating("StartFetch", 0f, timeInterval);
         illuminanceText.enabled = isTextVisible;
     }
 
     private void Update()
     {
-        Vector3 myPos = transform.position;
         
     }
     public void ToggleIlluminanceText()
@@ -50,14 +50,18 @@ public class IlluminanceFetcher : MonoBehaviour
 
         if (isTextVisible)
         {
-            // If the text is visible, fetch the data
             StartFetch();
+        }
+        else
+        {
+            CancelInvoke();
         }
     }
 
     public void StartFetch()
     {
         StartCoroutine(GetIlluminanceData());
+        //InvokeRepeating("GetIlluminanceData", 0, timeInterval);
     }
 
     IEnumerator GetIlluminanceData()
@@ -66,9 +70,11 @@ public class IlluminanceFetcher : MonoBehaviour
         {
             yield return request.SendWebRequest();
 
+            //Debug.Log("Start");
+
             if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(request.error);
+                //Debug.Log(request.error);
             }
             else
             {
@@ -76,7 +82,7 @@ public class IlluminanceFetcher : MonoBehaviour
                 if (response.result.Count > 0)
                 {
                     illuminance = float.Parse(response.result[0].value);
-
+                    //Debug.Log(response);
                     // Only change the text if it's visible
                     if (isTextVisible)
                     {

@@ -791,8 +791,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df378b965d67a9c45b1ff89355a9bdc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  url: http://localhost:8080
   timeInterval: 5
-  illuminance: 0
+  illuminance: 6
   illuminanceText: {fileID: 1304593726}
 --- !u!135 &2094704706
 SphereCollider:
